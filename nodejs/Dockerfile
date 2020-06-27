@@ -12,13 +12,9 @@ ARG NODEJS_VERSION="12.x"
 RUN curl -sL https://rpm.nodesource.com/setup_${NODEJS_VERSION} | bash -
 RUN yum install -y nodejs
 RUN npm install -g npm
-RUN npm i -g elm-github-install --unsafe-perm=true --allow-root
-RUN npm install --save -g appium --unsafe-perm=true --allow-root
-RUN npm install --save -g chromium --unsafe-perm=true --allow-root
 RUN npm install -g protractor  && npm install webdriver-manager 
-RUN npm install --save chromedriver selenium selenium-webdriver --unsafe-perm=true --allow-root
+RUN npm install --save appium chromium chromedriver selenium selenium-webdriver geckodriver --unsafe-perm=true --allow-root
 RUN npm install webdriver-manager update
-RUN npm install --save -g geckodriver --unsafe-perm=true --allow-root
 #RUN npm install geckodriver
 
 CMD ["/bin/bash"]
