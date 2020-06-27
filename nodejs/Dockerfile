@@ -4,6 +4,8 @@
 # protractor - Webdriver E2E test wrapper for Angular.
 # selenium - Selenium in an npm package
 FROM centos:centos7
+LABEL com.buildx.version="0.0.1-beta"
+LABEL com.buildx.release-date="2020-06-27"
 USER root
 RUN yum update -y; yum-builddep -y python; yum -y install curl libicu make java-1.8.0-openjdk java-1.8.0-openjdk-devel postgresql-devel gcc \
  libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel \
