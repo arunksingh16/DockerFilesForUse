@@ -5,7 +5,8 @@ USER root
 RUN yum update -y; yum-builddep -y python; yum -y install curl libicu make java-1.8.0-openjdk java-1.8.0-openjdk-devel postgresql-devel gcc \
  libtiff-devel libjpeg-devel libzip-devel freetype-devel lcms2-devel libwebp-devel tcl-devel tk-devel \
  libxslt-devel libxml2-devel python-devel openssl openssl-devel; yum clean all
-
+ARG NODEJS_VERSION="12.x"
+RUN curl -sL https://rpm.nodesource.com/setup_${NODEJS_VERSION} | bash -
 RUN yum install -y nodejs
 RUN npm install -g npm
 RUN npm install --save -g elm-github-install --unsafe-perm=true --allow-root
