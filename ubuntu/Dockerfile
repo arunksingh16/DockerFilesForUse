@@ -1,4 +1,5 @@
 FROM ubuntu:18.04
+MAINTAINER Arun_Singh
 RUN apt-get update -y && apt-get install -y ca-certificates wget curl gnupg2 openjdk-8-jre unzip
 RUN update-ca-certificates
 # ChromeDriver
