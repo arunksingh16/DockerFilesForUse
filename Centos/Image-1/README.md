@@ -1,6 +1,9 @@
 # Custom Dockerfile for Daily Usage Container 
 
-This repository is full of Dockefiles which helps you to perform day to day operation using containers.
+Image provides following functionality
+  
+  - CentOS 
+  - Powershell
 
 ### Image Management
 Build Image
