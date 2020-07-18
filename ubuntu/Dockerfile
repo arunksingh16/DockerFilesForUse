@@ -1,5 +1,6 @@
-FROM ubuntu:18.04
+# Image to manage Chrome Driver / Gecko Driver and Chrome/Firefox Browser
 MAINTAINER Arun_Singh
+FROM ubuntu:18.04
 RUN apt-get update -y && apt-get install -y ca-certificates wget curl gnupg2 openjdk-8-jre unzip
 RUN update-ca-certificates
 # ChromeDriver
@@ -35,5 +36,10 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
   && rm -f /tmp/apache-maven.tar.gz \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl && chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
+#RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl && chmod +x ./kubectl && mv ./kubectl /usr/local/bin/kubectl
+ARG GECKO_VER=v0.26.0
+RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl firefox && rm -fr /var/lib/apt/lists/*  && curl -L https://github.com/mozilla/geckodriver/releases/download/${GECKO_VER}/geckodriver-${GECKO_VER}-linux64.tar.gz | tar xz -C /usr/local/bin \
+ && apt-get purge -y ca-certificates curl && chmod +x /usr/local/bin/geckodriver
+
 CMD ["/bin/bash"]
+
