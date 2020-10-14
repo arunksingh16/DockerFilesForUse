@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 # setup jmeter version to use
 ARG JMETER_VERSION="5.2"
