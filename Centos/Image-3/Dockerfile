@@ -11,5 +11,8 @@ ARG HELM_VER=v3.2.4
 RUN curl -LO "https://get.helm.sh/helm-${HELM_VER}-linux-amd64.tar.gz"
 RUN tar -xzf helm-${HELM_VER}-linux-amd64.tar.gz && mv linux-amd64/helm /usr/local/bin/helm && chmod +x /usr/local/bin/helm && rm -rf linux-amd64
 RUN yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && yum install jq -y
-
+ARG OC_VERSION=4.5
+RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v$(echo $OC_VERSION | cut -d'.' -f 1)/clients/oc/$OC_VERSION/linux/oc.tar.gz && \
+    tar xzvf /tmp/oc.tar.gz -C /usr/local/bin/ && \
+    rm -rf /tmp/oc.tar.gz
 CMD ["bash"]
