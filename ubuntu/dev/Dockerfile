@@ -95,7 +95,7 @@ RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -O /usr/
 RUN wget https://storage.googleapis.com/kubernetes-release/release/v$KUBECTL_VER/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
 
 # Installing Helm
-ENV HELM_VERSION 3.2.0
+ENV HELM_VERSION 3.5.0
 RUN wget https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz -O /tmp/helm-v$HELM_VERSION-linux-amd64.tar.gz && \
     tar -zxvf /tmp/helm-v$HELM_VERSION-linux-amd64.tar.gz && \
     mv linux-amd64/helm /usr/local/bin/helm && \
@@ -112,22 +112,9 @@ RUN curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/downloa
 RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp && \
     mv /tmp/eksctl /usr/local/bin
 
-# Installing calicoctl
-ENV CALICO_VERSION 3.16.1
-RUN wget https://github.com/projectcalico/calicoctl/releases/download/v$CALICO_VERSION/calicoctl -O /usr/local/bin/calicoctl && chmod +x /usr/local/bin/calicoctl
-
 # Setting WORKDIR and USER 
 USER root
 WORKDIR /root
 VOLUME ["/home/devcon"]
 
-# ZSH ENVs
-ENV TERM xterm
-ENV ZSH_THEME agnoster
-RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
-RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-COPY zshrc .zshrc
-
-# Running ZSH
-CMD ["zsh"]
+CMD ["bash"]
