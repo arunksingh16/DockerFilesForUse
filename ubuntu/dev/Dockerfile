@@ -120,6 +120,12 @@ RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v$(echo 
     rm -rf /tmp/oc.tar.gz && \
     rm -rf /tmp/kubectl
 
+ENV KUSTOMIZE_VERSION 3.9.3
+RUN curl -sLo /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv${KUSTOMIZE_VERSION}/kustomize_v${KUSTOMIZE_VERSION}_linux_amd64.tar.gz && \    
+    tar xzvf /tmp/kustomize.tar.gz -C /usr/local/bin/ && \
+    rm -rf /tmp/kustomize.tar.gz
+
+
 USER root
 WORKDIR /root
 VOLUME ["/home/devcon"]
