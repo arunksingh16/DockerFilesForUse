@@ -113,6 +113,11 @@ RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/late
     mv /tmp/eksctl /usr/local/bin
 
 # Setting WORKDIR and USER 
+ARG OC_VERSION=4.5
+RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v$(echo $OC_VERSION | cut -d'.' -f 1)/clients/oc/$OC_VERSION/linux/oc.tar.gz && \
+    tar xzvf /tmp/oc.tar.gz -C /usr/local/bin/ && \
+    rm -rf /tmp/oc.tar.gz
+
 USER root
 WORKDIR /root
 VOLUME ["/home/devcon"]
