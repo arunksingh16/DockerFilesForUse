@@ -2,7 +2,9 @@ FROM centos:7.8.2003
 LABEL owner=singh.arunk16@hotmail.com
 RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc
 RUN curl https://packages.microsoft.com/config/rhel/7/prod.repo | tee /etc/yum.repos.d/microsoft.repo
-RUN yum update -y && yum install -y wget curl powershell which dos2unix unzip libtool perl-core zlib-devel azure-cli libicu openssl openssl-devel && yum install -y java-1.8.0-openjdk-headless && yum install -y mssql-tools unixODBC-devel && yum clean all
+RUN yum update -y && yum install -y wget curl powershell which dos2unix unzip libtool perl-core zlib-devel azure-cli libicu openssl openssl-devel && yum install -y java-1.8.0-openjdk-headless libcgroup
+ENV ACCEPT_EULA=Y
+RUN yum install -y mssql-tools unixODBC-devel && yum clean all
 ARG KUBE_VER=v1.20.2
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/${KUBE_VER}/bin/linux/amd64/kubectl && chmod +x ./kubectl && \
     mv ./kubectl /usr/local/bin/kubectl
