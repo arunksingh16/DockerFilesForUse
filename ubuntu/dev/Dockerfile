@@ -8,6 +8,7 @@ RUN apt-get update -y \
     build-essential \
     vim \
     git \
+    nmap \
     curl \
     cmake \
     wget \
@@ -125,9 +126,6 @@ RUN curl -sLo /tmp/kustomize.tar.gz https://github.com/kubernetes-sigs/kustomize
     tar xzvf /tmp/kustomize.tar.gz -C /usr/local/bin/ && \
     rm -rf /tmp/kustomize.tar.gz
 
-
 USER root
 WORKDIR /root
-VOLUME ["/home/devcon"]
-
 CMD ["bash"]
