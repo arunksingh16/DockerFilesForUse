@@ -44,7 +44,7 @@ RUN sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
-RUN apt-get update && apt-get install docker-ce-cli
+RUN apt-get -y update && apt-get install -y docker-ce-cli
 
 # Installing Additional PIP based libraries
 RUN pip install awscli \
