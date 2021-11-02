@@ -1,20 +1,12 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+name: $(SourceBranchName)_$(date:yyyyMMdd)$(rev:.r)
 
 trigger:
 - netshoot
 
-resources:
-  repositories:
-  - repository: DockerFilesForUse
-    type: github
-    endpoint: github.com_arunksingh16
-    name: github.com_arunksingh16/DockerFilesForUse
-    ref: netshoot
-
 variables:
-  tag: '$(Build.BuildId)'
+- group: BUILD-ARG
+- name: tag
+  value: '$(Build.BuildId)'
 
 stages:
 - stage: Build
@@ -25,12 +17,27 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-
-    - checkout: DockerFilesForUse
+    - checkout: self
     - task: Docker@2
-      displayName: Build an image
+      displayName: Login to Registry
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        containerRegistry: 'dockerhub'
+        command: 'login'
+        addPipelineData: false
+    - task: Docker@2
+      displayName: Build image
+      inputs:
+        containerRegistry: '$(dockerreg)'
+        repository: 'singharunk/netshoot'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
         tags: |
           $(tag)
+          latest
+        addPipelineData: false
+    - task: Docker@2
+      displayName: Logout to  Registry
+      inputs:
+        containerRegistry: $(dockerreg)
+        command: 'logout'
+        addPipelineData: false
