@@ -1,13 +1,13 @@
 trigger:
 - netshoot
 
-resources:
-  repositories:
-  - repository: DockerFilesForUse
-    type: github
-    endpoint: github.com_arunksingh16
-    name: github.com_arunksingh16/DockerFilesForUse
-    ref: netshoot
+# resources:
+#   repositories:
+#   - repository: DockerFilesForUse
+#     type: github
+#     endpoint: github.com_arunksingh16
+#     name: github.com_arunksingh16/DockerFilesForUse
+#     ref: netshoot
 
 variables:
   tag: '$(Build.BuildId)'
@@ -22,7 +22,7 @@ stages:
       vmImage: ubuntu-latest
     steps:
 
-    - checkout: DockerFilesForUse
+    - checkout: self
     - task: Docker@2
       displayName: Build an image
       inputs:
