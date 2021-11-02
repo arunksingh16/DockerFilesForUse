@@ -42,9 +42,12 @@ stages:
         addPipelineData: false
     - task: Docker@2
       inputs:
-        containerRegistry: $(dockerreg)
+        containerRegistry: '$(dockerreg)'
         repository: 'singharunk/netshoot'
         command: 'push'
+        tags: |
+          $(tag)
+          latest
         addPipelineData: false
     - task: Docker@2
       displayName: Logout to  Registry
