@@ -16,9 +16,6 @@ variables:
 #     name: github.com_arunksingh16/DockerFilesForUse
 #     ref: netshoot
 
-variables:
-  tag: '$(Build.BuildId)'
-
 stages:
 - stage: Build
   displayName: Build image
